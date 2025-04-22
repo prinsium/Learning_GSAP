@@ -5,13 +5,14 @@ body {
   padding: 0;
 }
 
-.box {
+#box {
   width: 100%;
   height: 100vh;
   display: flex;
+  background-color: #141414;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #141414;
 }
 
 h1 {
@@ -23,4 +24,20 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   margin: 0;
+}
+
+#cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: #99a1c4;
+  border-radius: 50%;
+}
+
+#image {
+  width: 60vw;
+  height: 60vh;
+  background-image: url("https://ksassets.timeincuk.net/wp/uploads/sites/55/2018/12/bm-920x584.png");
+  background-size: cover; 
+
 }
