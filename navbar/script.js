@@ -16,7 +16,7 @@ tl.to(menuIcon, {
     height: "auto",
     opacity: 1,
     duration: 0.5,
-    stagger: 0.1,
+    stagger: 0.8,
     ease: "power2.inOut",
     onStart: () => {
       navList.style.display = "block";
