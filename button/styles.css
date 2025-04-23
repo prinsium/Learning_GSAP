@@ -1,0 +1,68 @@
+/* body {
+    margin: 0;
+    font-family: sans-serif;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+button {
+    background-color: #1dc023; 
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 50px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+} */
+
+:root {
+  --font-size: 4vw;
+  --btn-height: calc(var(--font-size) + 5px);
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  font-family: sans-serif;
+}
+
+.btnclass {
+  display: flex;
+  gap: 5px;
+  background-color: #f4f4f4;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.char-wrapper {
+  height: var(--btn-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.char-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactbtn {
+  font-size: var(--font-size);
+  font-weight: 600;
+  line-height: 1;
+  color: #121212;
+}
