@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  font-family: monospace;
+  color: #0f0;
+}
+
+.container {
+  font-size: 4rem;
+  cursor: pointer;
+}
+
+.char {
+  display: inline-block;
+}
