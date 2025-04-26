@@ -61,33 +61,36 @@
 const container = document.querySelector('.container');
 const boxTemplate = document.querySelector('.box');
 
-// Create a 5x5 grid (5 rows × 5 cols)
+// Create 5x5 grid
 const rows = 5;
-const cols = 5;
+const cols = 15;
 
-container.innerHTML = ''; // clear the original box
+container.innerHTML = ''; // clear initial box
 
-// Create and place the boxes
 for (let y = 0; y < rows; y++) {
   for (let x = 0; x < cols; x++) {
     const box = boxTemplate.cloneNode(true);
-    box.style.left = `${x * 50}px`; // 50px = .box width
-    box.style.top = `${y * 50}px`;  // 50px = .box height
+    box.style.left = `${x * 50}px`;
+    box.style.top = `${y * 50}px`;
     container.appendChild(box);
   }
 }
 
-// Now, select all boxes again
 const boxes = document.querySelectorAll('.box');
 
-// distance function
+// distance calculator
+// function distance(x1, y1, x2, y2) {
+//   return Math.hypot(x1 - x2, y1 - y2);
+// }
+
+// New distance function for X pattern
 function distance(x1, y1, x2, y2) {
-  return Math.hypot(x1 - x2, y1 - y2);
+  return Math.abs(x1 - x2) === Math.abs(y1 - y2) ? Math.abs(x1 - x2) : 999; 
 }
 
-// Add hover effects
+
+// hover animation
 boxes.forEach((box1, i) => {
-  const cs1 = box1.querySelector('.cs');
   const x1 = i % cols;
   const y1 = Math.floor(i / cols);
 
@@ -97,30 +100,46 @@ boxes.forEach((box1, i) => {
       const x2 = j % cols;
       const y2 = Math.floor(j / cols);
 
-      const dist = distance(x1, y1, x2, y2);
+      // const dist = distance(x1, y1, x2, y2);
 
-      // Size and borderRadius based on distance
-      let scale = Math.max(1.8 - dist * 0.2, 0.4);
-      let radius = Math.min(50, dist * 8);
+      // let scale = Math.max(1.8 - dist * 0.2, 0.4);
+      // let radius = Math.min(50, dist * 8);
 
-      gsap.to(cs2, {
-        scale: scale,
-        borderRadius: `${radius}%`,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    });
+      // gsap.to(cs2, {
+      //   scale: scale,
+      //   borderRadius: `${radius}%`,
+      //   duration: 0.4,
+      //   ease: "power2.out",
+      // });
+
+      let dist = distance(x1, y1, x2, y2);
+
+if (dist !== 999) {
+  let scale = [1.0, 1.3, 1.6, 2.0][dist] || 0.4; // Custom scale per diagonal level
+  let radius = [40, 30, 20, 0][dist] || 50;
+
+  gsap.to(cs2, {
+    scale: scale,
+    borderRadius: `${radius}%`,
+    duration: 0.4,
+    ease: "power2.out",
   });
+}
 
-  box1.addEventListener('mouseleave', () => {
-    boxes.forEach((box2) => {
-      const cs2 = box2.querySelector('.cs');
-      gsap.to(cs2, {
-        scale: 0.4,
-        borderRadius: "50%",
-        duration: 0.5,
-        ease: "power2.out",
-      });
     });
   });
 });
+
+// shrink only when mouse leaves the entire container
+container.addEventListener('mouseleave', () => {
+  boxes.forEach((box2) => {
+    const cs2 = box2.querySelector('.cs');
+    gsap.to(cs2, {
+      scale: 0.4,
+      borderRadius: "50%",
+      duration: 0.5,
+      ease: "power2.out",
+    });
+  });
+});
+
