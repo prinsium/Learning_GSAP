@@ -58,46 +58,86 @@
 // });
 
 
-const boxes = document.querySelectorAll('.box');
+const container = document.querySelector('.container');
+const box = document.querySelector('.box');
 
+const boxWidth = 40;
+const boxHeight = 40;
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const cols = Math.floor(screenWidth / boxWidth);
+const rows = Math.floor(screenHeight / boxHeight);
+
+container.innerHTML = ''; // clear old box
+
+let boxes = [];
+
+// create grid of boxes
+for (let i = 0; i < rows; i++) {
+  for (let j = 0; j < cols; j++) {
+    const newBox = box.cloneNode(true);
+    newBox.style.left = `${j * boxWidth}px`;
+    newBox.style.top = `${i * boxHeight}px`;
+    container.appendChild(newBox);
+    boxes.push(newBox);
+  }
+}
+
+// distance calculator
 function distance(x1, y1, x2, y2) {
   return Math.hypot(x1 - x2, y1 - y2);
 }
 
-boxes.forEach((box1, i) => {
-  const cs1 = box1.querySelector('.cs');
-  const x1 = i % 9;
-  const y1 = Math.floor(i / 9);
+boxes.forEach((parentBox, index) => {
+  const cs1 = parentBox.querySelector('.cs');
+  const x1 = parentBox.offsetLeft;
+  const y1 = parentBox.offsetTop;
 
-  box1.addEventListener('mouseenter', () => {
-    boxes.forEach((box2, j) => {
-      const cs2 = box2.querySelector('.cs');
-      const x2 = j % 9;
-      const y2 = Math.floor(j / 9);
+  parentBox.addEventListener('mouseenter', () => {
+    boxes.forEach((childBox) => {
+      const cs2 = childBox.querySelector('.cs');
+      const x2 = childBox.offsetLeft;
+      const y2 = childBox.offsetTop;
 
       const dist = distance(x1, y1, x2, y2);
 
-      // Size based on distance
-      let scale = Math.max(1.8 - dist * 0.2, 0.4);
-      let radius = Math.min(50, dist * 8);
+      let scale;
+      let radius;
+
+      if (dist < 1) {
+        scale = 1;
+        radius = 0;
+      } else if (dist < boxWidth * 1.5) {
+        scale = 0.8;
+        radius = 10;
+      } else if (dist < boxWidth * 2.5) {
+        scale = 0.6;
+        radius = 20;
+      } else if (dist < boxWidth * 3.5) {
+        scale = 0.4;
+        radius = 30;
+      } else {
+        scale = 0.2;
+        radius = 40;
+      }
 
       gsap.to(cs2, {
         scale: scale,
-        borderRadius: `${radius}%`,
+        borderRadius: `${radius}px`,
         duration: 0.4,
-        ease: "power2.out",
+        ease: "power2.out"
       });
     });
   });
 
-  box1.addEventListener('mouseleave', () => {
-    boxes.forEach((box2) => {
-      const cs2 = box2.querySelector('.cs');
+  parentBox.addEventListener('mouseleave', () => {
+    boxes.forEach((childBox) => {
+      const cs2 = childBox.querySelector('.cs');
       gsap.to(cs2, {
-        scale: 0.4,
+        scale: 0.2,
         borderRadius: "50%",
         duration: 0.5,
-        ease: "power2.out",
+        ease: "power2.out"
       });
     });
   });
