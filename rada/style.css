@@ -1,0 +1,29 @@
+/* Styling for the main container */
+.container {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr); /* 8 columns */
+  grid-template-rows: repeat(8, 1fr); /* 28 rows */
+  grid-gap: 5px;
+  width: 100%;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* Styling for individual boxes */
+.box {
+  border: 2px solid red;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Styling for the transparent boxes list */
+.transparent-boxes-list {
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.transparent-boxes-list h3 {
+  margin-bottom: 10px;
+}
