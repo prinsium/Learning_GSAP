@@ -1,0 +1,42 @@
+/* Basic styling for the container */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+.container {
+  position: relative;
+  width: 100vw; /* Set a fixed width for the image */
+  height: 100vh; /* Set a fixed height for the image */
+  overflow: hidden;
+}
+
+.container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  backdrop-filter: blur(50px); /* Optional: add a blur effect to the image */
+  top: 0;
+  left: 0;
+}
+
+/* Styling for individual squares */
+.square {
+  position: absolute;
+  width: 4%; /* The size of each tiny square (adjust as needed) */
+  height: 4%;
+  transition: transform 0.5s ease;
+  background-image: url('https://i.pinimg.com/474x/8a/1e/4f/8a1e4f3e550169c28a58a9226d475033.jpg');
+  background-size: 100%;
+}
+
+/* Initial position of the squares (grid layout) */
+.container:hover .square {
+  transform: translate(calc(10px * (random() - 0.5)), calc(10px * (random() - 0.5)));
+}
